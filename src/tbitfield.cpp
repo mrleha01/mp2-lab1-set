@@ -112,7 +112,8 @@ int TBitField::GetBit(const int n) const // получить значение б
 	{
 		throw std::runtime_error("get bit with too large index");
 	}
-	TELEM byte = pMem[GetMemIndex(n)];
+	int memIndex = GetMemIndex(n);
+	TELEM byte = pMem[memIndex];
 	byte &= GetMemMask(n);
 	return byte != 0;
 }
@@ -134,6 +135,7 @@ TBitField& TBitField::operator=(const TBitField &bf) // присваивание
 	{
 		pMem[i] = bf.pMem[i];
 	}
+	return *this;
 }
 
 int TBitField::operator==(const TBitField &bf) const // сравнение
@@ -245,9 +247,9 @@ ostream &operator<<(ostream &ostr, const TBitField &bf) // вывод
 {
 	if (bf.pMem != nullptr)
 	{
-		for (int i = 0; i < bf.MemLen; ++i)
+		for (int i = 0; i < bf.BitLen; ++i)
 		{
-			ostr << bf.pMem[i];
+			ostr << bf.GetBit(i);
 		}
 	}
     return ostr;

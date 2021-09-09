@@ -114,5 +114,12 @@ istream &operator>>(istream &istr, TSet &s) // ввод
 
 ostream& operator<<(ostream &ostr, const TSet &s) // вывод
 {
-    return ostr << s.BitField;
+	for (int i = 0; i < s.BitField.GetLength(); ++i)
+	{
+		if (s.BitField.GetBit(i))
+		{
+			ostr << i << " ";
+		}
+	}
+    return ostr;
 }
